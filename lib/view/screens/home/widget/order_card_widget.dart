@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../controller/splash_controller.dart';
 import '../../../../data/model/response/config_model.dart';
@@ -75,7 +76,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     // print(formatted);
   }
 
-  String? orderStatus;
+  //String? orderStatus;
   late OrderDetailsModel orderDetailsModel;
   final OrderRepo orderRepo = Get.find();
 
@@ -84,7 +85,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
         .getOrderDetails(orderID, updateUi: 1)
         .then((value) {
       orderDetailsModel = value;
-      orderStatus = orderDetailsModel.order.orderStatus;
+      //  orderStatus = orderDetailsModel.order.orderStatus;
 
       isLoading = false;
       Get.find<OrderController>().update();
@@ -98,9 +99,12 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     final ConfigModel configModel = Get.find<SplashController>().configModel;
     return GetBuilder<OrderController>(initState: (state) {
       getOrderDetails(widget.order.id!);
-      Timer.periodic(const Duration(seconds: 1), (Timer t) {
-        caltimeElapsed(widget.order.createdAt!);
-      });
+      Logger().i(orderDetailsModel.order.orderStatus);
+      if (orderDetailsModel.order.orderStatus != 'done') {
+        Timer.periodic(const Duration(seconds: 1), (Timer t) {
+          caltimeElapsed(widget.order.createdAt!);
+        });
+      }
     }, builder: (orderController) {
       return isLoading
           ? SpinKitChasingDots(
@@ -193,7 +197,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                             TextSpan(children: [
                               TextSpan(
                                   text:
-                                      '${'order_id'.tr} #${widget.order.id}  ${orderDetailsModel.order.customerName != "" ? orderDetailsModel.order.customerName : ""}\n${timeconverter(widget.order.createdAt!)} $orderStatus ',
+                                      '${'order_id'.tr} #${widget.order.id}  ${orderDetailsModel.order.customerName != "" ? orderDetailsModel.order.customerName : ""}\n${timeconverter(widget.order.createdAt!)} ${orderDetailsModel.order.orderStatus} ',
                                   style: robotoMedium.copyWith(
                                     color:
                                         timeColor != null ? Colors.white : null,
@@ -216,12 +220,14 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                             // height: double.infinity,
                             width: MediaQuery.of(context).size.width / 2,
                             decoration: BoxDecoration(
-                                color: orderStatus == 'confirmed'
+                                color: orderDetailsModel.order.orderStatus ==
+                                        'confirmed'
                                     ? Theme.of(context)
                                         .colorScheme
                                         .primary
                                         .withOpacity(.15)
-                                    : orderStatus == 'cooking'
+                                    : orderDetailsModel.order.orderStatus ==
+                                            'cooking'
                                         ? Theme.of(context)
                                             .primaryColor
                                             .withOpacity(.15)
@@ -605,7 +611,8 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                         isLoading = true;
                                       });
 
-                                      if (orderStatus == 'confirmed') {
+                                      if (orderDetailsModel.order.orderStatus ==
+                                          'confirmed') {
                                         Get.find<OrderController>()
                                             .orderStatusUpdate(
                                                 widget.order.id as int,
@@ -622,7 +629,8 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
 
                                         //  Future.delayed(Du)
                                       }
-                                      if (orderStatus == 'cooking') {
+                                      if (orderDetailsModel.order.orderStatus ==
+                                          'cooking') {
                                         Get.find<OrderController>()
                                             .orderStatusUpdate(
                                                 widget.order.id as int, 'done')
@@ -641,7 +649,8 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                     },
                               orderId: widget.order.id ?? 0,
                               // widget.order.
-                              orderStatus: orderStatus.toString())
+                              orderStatus: orderDetailsModel.order.orderStatus
+                                  .toString())
                     ],
                   )),
             );

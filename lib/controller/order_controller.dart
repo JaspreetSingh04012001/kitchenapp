@@ -7,6 +7,7 @@ import 'package:efood_kitchen/view/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:logger/logger.dart';
 
 enum OrderStatusTabs { all, done }
 
@@ -247,13 +248,18 @@ class OrderController extends GetxController implements GetxService {
     Response response = await orderRepo.updateOrderStatus(orderId, orderStatus);
     if (response.statusCode == 200) {
       if (orderDeatailsModelBox.isNotEmpty) {
-        List x = orderDeatailsModelBox.values.toList();
-        for (var element in x) {
-          if (element.order.id == orderId) {
-            orderDeatailsModelBox.deleteAt(x.indexOf(element));
+        final Map<dynamic, OrderDetailsModel> deliveriesMap =
+            orderDeatailsModelBox.toMap();
+        dynamic desiredKey;
+        deliveriesMap.forEach((key, value) {
+          if (value.order.id == orderId) {
+            Logger().i(key);
+            desiredKey = key;
           }
-        }
+        });
+        orderDeatailsModelBox.delete(desiredKey);
       }
+
       // if (orderStatus == "cooking") {
       // updateOrderStatusTabs(OrderStatusTabs.all);
       // setIndex(1);
