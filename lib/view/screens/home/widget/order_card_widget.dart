@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:efood_kitchen/controller/order_controller.dart';
 import 'package:efood_kitchen/data/model/response/order_model.dart';
 import 'package:efood_kitchen/helper/responsive_helper.dart';
@@ -6,6 +8,7 @@ import 'package:efood_kitchen/util/styles.dart';
 import 'package:efood_kitchen/view/screens/home/widget/status_change_custom_button.dart';
 import 'package:efood_kitchen/view/screens/order/order_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -35,12 +38,32 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
         .join('\n');
   }
 
+  Color? timeColor;
+  String _printDuration(Duration duration) {
+    if (duration.inHours >= 0 && duration.inMinutes.remainder(60).abs() > 6) {
+      timeColor = Colors.red;
+    }
+    // String negativeSign = duration.isNegative ? '-' : '';
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60).abs());
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  String? timeElapsed;
+  caltimeElapsed(String input) {
+    setState(() {
+      timeElapsed =
+          _printDuration(DateTime.now().difference(DateTime.parse(input)));
+    });
+  }
+
   String timeconverter(String input) {
     input.indexOf(".");
     return input
         .replaceRange(input.indexOf(".") - 3, input.length, "")
         .replaceAll("T", "  ");
-    //  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
     // final String formatted = formatter.format(input);
     // print(formatted);
   }
@@ -68,9 +91,13 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     final ConfigModel configModel = Get.find<SplashController>().configModel;
     return GetBuilder<OrderController>(initState: (state) {
       getOrderDetails(widget.order.id!);
+      Timer.periodic(const Duration(seconds: 1), (Timer t) {
+        caltimeElapsed(widget.order.createdAt!);
+      });
     }, builder: (orderController) {
       return isLoading
-          ? CircularProgressIndicator(
+          ? SpinKitChasingDots(
+              duration: const Duration(milliseconds: 800),
               color: Theme.of(context).primaryColor,
             )
           : InkWell(
@@ -81,11 +108,14 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                   duration: const Duration(milliseconds: 200),
                   barrierDismissible: true,
                   builder: (BuildContext context) {
-                    return SizedBox(
-                        width: ResponsiveHelper.isTab(context)
-                            ? MediaQuery.sizeOf(context).width * 0.4
-                            : null,
-                        child: OrderDetailsScreen(orderId: widget.order.id!));
+                    return Dialog(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                          width: ResponsiveHelper.isTab(context)
+                              ? MediaQuery.sizeOf(context).width * 0.4
+                              : null,
+                          child: OrderDetailsScreen(orderId: widget.order.id!)),
+                    );
                   },
                   animationType: DialogTransitionType.slideFromBottomFade,
                 );
@@ -152,12 +182,23 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                           vertical: Dimensions.paddingSizeExtraSmall,
                         ),
                         child: Center(
-                          child: Text(
-                              textAlign: TextAlign.center,
-                              '${'order_id'.tr} #${widget.order.id}\n${orderDetailsModel.order.customerName != "" ? "${orderDetailsModel.order.customerName}\n" : ""}${timeconverter(widget.order.createdAt!)}\n$orderStatus',
-                              style: robotoMedium.copyWith(
-                                fontSize: Dimensions.fontSizeDefault,
-                              )),
+                          child: Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                  text:
+                                      '${'order_id'.tr} #${widget.order.id}  ${orderDetailsModel.order.customerName != "" ? orderDetailsModel.order.customerName : ""}\n${timeconverter(widget.order.createdAt!)} $orderStatus ',
+                                  style: robotoMedium.copyWith(
+                                    fontSize: Dimensions.fontSizeDefault,
+                                  )),
+                              TextSpan(
+                                  text: timeElapsed ?? "",
+                                  style: robotoMedium.copyWith(
+                                    color: timeColor,
+                                    fontSize: Dimensions.fontSizeDefault,
+                                  )),
+                            ]),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       Expanded(
@@ -285,27 +326,19 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                                       // overflow: TextOverflow
                                                       //     .ellipsis,
                                                     )),
-                                                Expanded(
-                                                    // flex: 5,
-                                                    child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: Dimensions
-                                                          .paddingSizeExtraSmall),
-                                                  child: Text(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    "x ${addQty[j]}",
-                                                    textAlign: TextAlign.center,
-                                                    style: robotoRegular.copyWith(
-                                                        fontSize: Dimensions
-                                                            .fontSizeOverLarge,
-                                                        color: Theme.of(context)
-                                                            .textTheme
-                                                            .titleLarge!
-                                                            .color!),
-                                                  ),
-                                                )),
+                                                Text(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  " X ${addQty[j]} ",
+                                                  textAlign: TextAlign.center,
+                                                  style: robotoRegular.copyWith(
+                                                      fontSize: Dimensions
+                                                          .fontSizeOverLarge,
+                                                      color: Theme.of(context)
+                                                          .textTheme
+                                                          .titleLarge!
+                                                          .color!),
+                                                ),
                                               ],
                                             ));
                                           }

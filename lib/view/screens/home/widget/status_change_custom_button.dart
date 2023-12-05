@@ -67,9 +67,9 @@ class StatusChangeCustomButton extends StatelessWidget {
               ),
               child: Text('start_cooking'.tr,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: Dimensions.fontSizeDefault + 2,
-                      )),
+                      color: Theme.of(context).primaryColor,
+                      fontSize: Dimensions.fontSizeOverLarge,
+                      fontWeight: FontWeight.w400)),
               // Transform.rotate(
               //   angle: Get.find<LocalizationController>().isLtr ? pi * 2 : pi, // in radians
               //   child: Directionality(
@@ -141,9 +141,8 @@ class StatusChangeCustomButton extends StatelessWidget {
                   ),
                   child: Text("done".tr,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: Dimensions.fontSizeDefault + 2,
-                          )),
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontSize: Dimensions.fontSizeOverLarge)),
                   // Transform.rotate(
                   //   angle: Get.find<LocalizationController>().isLtr
                   //       ? pi * 2

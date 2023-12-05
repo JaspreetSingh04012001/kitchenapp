@@ -1,5 +1,4 @@
 import 'package:efood_kitchen/controller/order_controller.dart';
-import 'package:efood_kitchen/helper/responsive_helper.dart';
 import 'package:efood_kitchen/util/dimensions.dart';
 import 'package:efood_kitchen/util/styles.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +29,7 @@ class BookingStatusTabItem extends StatelessWidget {
       child: Text(title.tr,
           textAlign: TextAlign.center,
           style: robotoRegular.copyWith(
-              fontSize: ResponsiveHelper.isSmallTab()
-                  ? Dimensions.fontSizeDefault
-                  : Dimensions.fontSizeSmall,
+              fontSize: Dimensions.fontSizeOverLarge,
               color: Get.find<OrderController>().selectedBookingStatus.name !=
                       title
                   ? Theme.of(context).textTheme.bodyLarge!.color
