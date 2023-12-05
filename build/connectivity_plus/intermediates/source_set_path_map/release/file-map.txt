@@ -1,0 +1,12 @@
+dev.fluttercommunity.plus.connectivity.connectivity_plus-core-1.6.0-0 /Users/jaspreetsingh/.gradle/caches/transforms-3/344ba819bed2afb17c46ef03708399a7/transformed/core-1.6.0/res
+dev.fluttercommunity.plus.connectivity.connectivity_plus-jetified-window-java-1.0.0-beta04-1 /Users/jaspreetsingh/.gradle/caches/transforms-3/6037f8214800fe065936d9621f2055fc/transformed/jetified-window-java-1.0.0-beta04/res
+dev.fluttercommunity.plus.connectivity.connectivity_plus-jetified-annotation-experimental-1.1.0-2 /Users/jaspreetsingh/.gradle/caches/transforms-3/906b349347d306bbd42e90e960d9f0bd/transformed/jetified-annotation-experimental-1.1.0/res
+dev.fluttercommunity.plus.connectivity.connectivity_plus-jetified-window-1.0.0-beta04-3 /Users/jaspreetsingh/.gradle/caches/transforms-3/d4ba5f945d94c7500b76e98fc0ee0763/transformed/jetified-window-1.0.0-beta04/res
+dev.fluttercommunity.plus.connectivity.connectivity_plus-main-4 /Users/jaspreetsingh/.pub-cache/hosted/pub.dev/connectivity_plus-3.0.6/android/src/main/res
+dev.fluttercommunity.plus.connectivity.connectivity_plus-release-5 /Users/jaspreetsingh/.pub-cache/hosted/pub.dev/connectivity_plus-3.0.6/android/src/release/res
+dev.fluttercommunity.plus.connectivity.connectivity_plus-pngs-6 /Users/jaspreetsingh/Downloads/kitchenapp/build/connectivity_plus/generated/res/pngs/release
+dev.fluttercommunity.plus.connectivity.connectivity_plus-resValues-7 /Users/jaspreetsingh/Downloads/kitchenapp/build/connectivity_plus/generated/res/resValues/release
+dev.fluttercommunity.plus.connectivity.connectivity_plus-rs-8 /Users/jaspreetsingh/Downloads/kitchenapp/build/connectivity_plus/generated/res/rs/release
+dev.fluttercommunity.plus.connectivity.connectivity_plus-mergeReleaseResources-9 /Users/jaspreetsingh/Downloads/kitchenapp/build/connectivity_plus/intermediates/incremental/release/mergeReleaseResources/merged.dir
+dev.fluttercommunity.plus.connectivity.connectivity_plus-mergeReleaseResources-10 /Users/jaspreetsingh/Downloads/kitchenapp/build/connectivity_plus/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+dev.fluttercommunity.plus.connectivity.connectivity_plus-merged_res-11 /Users/jaspreetsingh/Downloads/kitchenapp/build/connectivity_plus/intermediates/merged_res/release

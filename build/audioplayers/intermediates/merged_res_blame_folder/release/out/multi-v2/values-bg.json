@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "xyz.luan.audioplayers-merged_res-11:/values-bg/values-bg.xml",
+            "map": [
+                {
+                    "source": "/Users/jaspreetsingh/.gradle/caches/transforms-3/344ba819bed2afb17c46ef03708399a7/transformed/core-1.6.0/res/values-bg/values-bg.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "xyz.luan.audioplayers-mergeReleaseResources-9:/values-bg/values-bg.xml",
+            "map": [
+                {
+                    "source": "/Users/jaspreetsingh/.gradle/caches/transforms-3/344ba819bed2afb17c46ef03708399a7/transformed/core-1.6.0/res/values-bg/values-bg.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

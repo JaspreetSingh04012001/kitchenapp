@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:efood_kitchen/controller/auth_controller.dart';
 import 'package:efood_kitchen/controller/order_controller.dart';
 import 'package:efood_kitchen/controller/theme_controller.dart';
@@ -7,10 +9,10 @@ import 'package:efood_kitchen/view/base/animated_dialog.dart';
 import 'package:efood_kitchen/view/base/custom_app_bar.dart';
 import 'package:efood_kitchen/view/base/custom_rounded_button.dart';
 import 'package:efood_kitchen/view/base/logout_dialog.dart';
-import 'package:efood_kitchen/view/screens/auth/login_screen.dart';
 import 'package:efood_kitchen/view/screens/home/widget/order_status_tabs_item.dart';
 import 'package:efood_kitchen/view/screens/home/widget/profile_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'widget/order_list_view.dart';
@@ -119,13 +121,18 @@ class _TabHomeScreenState extends State<TabHomeScreen>
                                       Get.find<AuthController>()
                                           .clearSharedData()
                                           .then((condition) {
-                                        Navigator.pop(context);
-                                        Navigator.of(context)
-                                            .pushAndRemoveUntil(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const LoginScreen()),
-                                                (route) => false);
+                                        if (Platform.isAndroid) {
+                                          SystemNavigator.pop();
+                                        } else if (Platform.isIOS) {
+                                          exit(0);
+                                        }
+                                        // Navigator.pop(context);
+                                        // Navigator.of(context)
+                                        //     .pushAndRemoveUntil(
+                                        //         MaterialPageRoute(
+                                        //             builder: (context) =>
+                                        //                 const LoginScreen()),
+                                        //         (route) => false);
                                       });
                                     },
                                     onTapTrueText: 'yes'.tr,

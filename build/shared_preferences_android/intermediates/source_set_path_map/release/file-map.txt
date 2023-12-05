@@ -1,0 +1,12 @@
+io.flutter.plugins.sharedpreferences.shared_preferences_android-core-1.6.0-0 /Users/jaspreetsingh/.gradle/caches/transforms-3/344ba819bed2afb17c46ef03708399a7/transformed/core-1.6.0/res
+io.flutter.plugins.sharedpreferences.shared_preferences_android-jetified-window-java-1.0.0-beta04-1 /Users/jaspreetsingh/.gradle/caches/transforms-3/6037f8214800fe065936d9621f2055fc/transformed/jetified-window-java-1.0.0-beta04/res
+io.flutter.plugins.sharedpreferences.shared_preferences_android-jetified-annotation-experimental-1.1.0-2 /Users/jaspreetsingh/.gradle/caches/transforms-3/906b349347d306bbd42e90e960d9f0bd/transformed/jetified-annotation-experimental-1.1.0/res
+io.flutter.plugins.sharedpreferences.shared_preferences_android-jetified-window-1.0.0-beta04-3 /Users/jaspreetsingh/.gradle/caches/transforms-3/d4ba5f945d94c7500b76e98fc0ee0763/transformed/jetified-window-1.0.0-beta04/res
+io.flutter.plugins.sharedpreferences.shared_preferences_android-main-4 /Users/jaspreetsingh/.pub-cache/hosted/pub.dev/shared_preferences_android-2.1.4/android/src/main/res
+io.flutter.plugins.sharedpreferences.shared_preferences_android-release-5 /Users/jaspreetsingh/.pub-cache/hosted/pub.dev/shared_preferences_android-2.1.4/android/src/release/res
+io.flutter.plugins.sharedpreferences.shared_preferences_android-pngs-6 /Users/jaspreetsingh/Downloads/kitchenapp/build/shared_preferences_android/generated/res/pngs/release
+io.flutter.plugins.sharedpreferences.shared_preferences_android-resValues-7 /Users/jaspreetsingh/Downloads/kitchenapp/build/shared_preferences_android/generated/res/resValues/release
+io.flutter.plugins.sharedpreferences.shared_preferences_android-rs-8 /Users/jaspreetsingh/Downloads/kitchenapp/build/shared_preferences_android/generated/res/rs/release
+io.flutter.plugins.sharedpreferences.shared_preferences_android-mergeReleaseResources-9 /Users/jaspreetsingh/Downloads/kitchenapp/build/shared_preferences_android/intermediates/incremental/release/mergeReleaseResources/merged.dir
+io.flutter.plugins.sharedpreferences.shared_preferences_android-mergeReleaseResources-10 /Users/jaspreetsingh/Downloads/kitchenapp/build/shared_preferences_android/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+io.flutter.plugins.sharedpreferences.shared_preferences_android-merged_res-11 /Users/jaspreetsingh/Downloads/kitchenapp/build/shared_preferences_android/intermediates/merged_res/release
