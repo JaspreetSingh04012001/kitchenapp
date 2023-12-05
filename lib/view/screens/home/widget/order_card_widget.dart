@@ -40,9 +40,16 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
 
   Color? timeColor;
   String _printDuration(Duration duration) {
-    if (duration.inHours >= 0 && duration.inMinutes.remainder(60).abs() > 6) {
+    if (duration.inHours > 1) {
       timeColor = Colors.red;
+    } else {
+      if (duration.inMinutes.remainder(60).abs() > 6) {
+        timeColor = Colors.orange;
+      } else if (duration.inMinutes.remainder(60).abs() > 10) {
+        timeColor = Colors.red;
+      }
     }
+
     // String negativeSign = duration.isNegative ? '-' : '';
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
@@ -161,7 +168,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                         // width: MediaQuery.of(context).size.width/2,
                         decoration: BoxDecoration(
                           // color: Colors.amber,
-                          color: Theme.of(context).cardColor,
+                          color: timeColor ?? Theme.of(context).cardColor,
                           borderRadius: const BorderRadius.only(
                               topLeft:
                                   Radius.circular(Dimensions.paddingSizeSmall),
@@ -188,12 +195,15 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                   text:
                                       '${'order_id'.tr} #${widget.order.id}  ${orderDetailsModel.order.customerName != "" ? orderDetailsModel.order.customerName : ""}\n${timeconverter(widget.order.createdAt!)} $orderStatus ',
                                   style: robotoMedium.copyWith(
+                                    color:
+                                        timeColor != null ? Colors.white : null,
                                     fontSize: Dimensions.fontSizeDefault,
                                   )),
                               TextSpan(
                                   text: timeElapsed ?? "",
                                   style: robotoMedium.copyWith(
-                                    color: timeColor,
+                                    color:
+                                        timeColor != null ? Colors.white : null,
                                     fontSize: Dimensions.fontSizeDefault,
                                   )),
                             ]),
