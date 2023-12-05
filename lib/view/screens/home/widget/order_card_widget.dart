@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 import '../../../../controller/splash_controller.dart';
 import '../../../../data/model/response/config_model.dart';
@@ -44,9 +43,10 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     if (duration.inHours > 1) {
       timeColor = Colors.red;
     } else {
-      if (duration.inMinutes.remainder(60).abs() > 6) {
+      if (duration.inMinutes > 6) {
         timeColor = Colors.orange;
-      } else if (duration.inMinutes.remainder(60).abs() > 10) {
+      }
+      if (duration.inMinutes > 10) {
         timeColor = Colors.red;
       }
     }
@@ -55,7 +55,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60).abs());
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+    return "${duration.inMinutes}:$twoDigitSeconds";
   }
 
   String? timeElapsed;
@@ -85,10 +85,15 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
         .getOrderDetails(orderID, updateUi: 1)
         .then((value) {
       orderDetailsModel = value;
-      //  orderStatus = orderDetailsModel.order.orderStatus;
+      // orderStatus = orderDetailsModel.order.orderStatus;
 
       isLoading = false;
       Get.find<OrderController>().update();
+      if (orderDetailsModel.order.orderStatus != 'done') {
+        Timer.periodic(const Duration(seconds: 1), (Timer t) {
+          caltimeElapsed(widget.order.createdAt!);
+        });
+      }
     });
   }
 
@@ -99,12 +104,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     final ConfigModel configModel = Get.find<SplashController>().configModel;
     return GetBuilder<OrderController>(initState: (state) {
       getOrderDetails(widget.order.id!);
-      Logger().i(orderDetailsModel.order.orderStatus);
-      if (orderDetailsModel.order.orderStatus != 'done') {
-        Timer.periodic(const Duration(seconds: 1), (Timer t) {
-          caltimeElapsed(widget.order.createdAt!);
-        });
-      }
+      //   Logger().i(orderDetailsModel.order.orderStatus);
     }, builder: (orderController) {
       return isLoading
           ? SpinKitChasingDots(
