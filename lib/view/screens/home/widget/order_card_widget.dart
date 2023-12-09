@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../controller/splash_controller.dart';
 import '../../../../data/model/response/config_model.dart';
@@ -55,25 +56,46 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60).abs());
-    return "${duration.inMinutes}:$twoDigitSeconds";
+    return "${duration.inHours > 0 ? duration.inHours : ""} $twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  String xyz(timeString) {
+    final dateTime = DateTime.parse(timeString);
+
+    // Convert to 12-hour format with date
+    final formatter = DateFormat('yyyy-MM-dd h:m a');
+    final formattedTime = formatter.format(dateTime);
+
+    // Print the formatted time
+    return formattedTime;
+  }
+
+  String xyzz(timeString) {
+    final dateTime = DateTime.parse(timeString);
+
+    // Convert to 12-hour format with date
+    final formatter = DateFormat('yyyy-MM-dd HH mm ss');
+    final formattedTime = formatter.format(dateTime);
+
+    // Print the formatted time
+    return formattedTime;
   }
 
   String? timeElapsed;
   caltimeElapsed(String input) {
     setState(() {
-      timeElapsed =
-          _printDuration(DateTime.now().difference(DateTime.parse(input)));
+      timeElapsed = _printDuration(
+          DateTime.now().difference(DateTime.parse(input.replaceAll("Z", ""))));
     });
   }
 
   String timeconverter(String input) {
+    xyz(input);
     input.indexOf(".");
+
     return input
         .replaceRange(input.indexOf(".") - 3, input.length, "")
         .replaceAll("T", "  ");
-
-    // final String formatted = formatter.format(input);
-    // print(formatted);
   }
 
   //String? orderStatus;
@@ -130,14 +152,6 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                   },
                   animationType: DialogTransitionType.slideFromBottomFade,
                 );
-                // Get.to(OrderDetailsScreen(orderId: widget.order.id!));
-                // if (ResponsiveHelper.isTab(context)) {
-                //   orderController.setOrderIdForOrderDetails(widget.order.id!,
-                //       widget.order.orderStatus!, widget.order.orderNote);
-                //   orderController.getOrderDetails(widget.order.id!);
-                // } else {
-                //   Get.to(OrderDetailsScreen(orderId: widget.order.id!));
-                // }
               },
               child: Container(
                   margin:
@@ -197,7 +211,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                             TextSpan(children: [
                               TextSpan(
                                   text:
-                                      '${'order_id'.tr} #${widget.order.id}  ${orderDetailsModel.order.customerName != "" ? orderDetailsModel.order.customerName : ""}\n${timeconverter(widget.order.createdAt!)} ${orderDetailsModel.order.orderStatus} ',
+                                      '${'order_id'.tr} #${widget.order.id}  ${orderDetailsModel.order.customerName != "" ? orderDetailsModel.order.customerName : ""}\n${xyz(widget.order.createdAt!)} ${orderDetailsModel.order.orderStatus} ',
                                   style: robotoMedium.copyWith(
                                     color:
                                         timeColor != null ? Colors.white : null,

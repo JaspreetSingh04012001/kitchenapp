@@ -295,7 +295,8 @@ class OrderedProductList extends StatelessWidget {
                             //   ],
                             // ),
                             ...variationWidgetList,
-                          if (orderDetails.note != null)
+                          if (orderDetails.note != null ||
+                              orderDetails.note != "")
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

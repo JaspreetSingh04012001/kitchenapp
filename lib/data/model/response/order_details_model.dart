@@ -182,6 +182,9 @@ class Details extends HiveObject {
 
   Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    if (json['note'] != null && json['note'] != "") {
+      note = json['note'];
+    }
     productId = json['product_id'];
     orderId = json['order_id'];
     price = json['price'].toDouble();
@@ -244,6 +247,7 @@ class Details extends HiveObject {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['note'] = note;
     data['product_id'] = productId;
     data['order_id'] = orderId;
     data['price'] = price;

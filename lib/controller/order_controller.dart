@@ -201,7 +201,7 @@ class OrderController extends GetxController implements GetxService {
             _isDetails = false;
             update();
           }
-          //  Logger().i(element.toJson());
+          Logger().i(element.toJson());
           return orderDetailsModel;
         }
       }
@@ -213,6 +213,7 @@ class OrderController extends GetxController implements GetxService {
               apiResponse.body['order']['order_status'] != 'out_for_delivery') {
             orderDetailsModel = OrderDetailsModel.fromJson(apiResponse.body);
             _orderDetails = OrderDetailsModel.fromJson(apiResponse.body);
+            Logger().i(apiResponse.body);
             orderDeatailsModelBox
                 .add(OrderDetailsModel.fromJson(apiResponse.body));
           }
